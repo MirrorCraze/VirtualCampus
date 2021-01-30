@@ -5,16 +5,16 @@
  */
 
 var map = [ // 1  2  3  4  5  6  7  8  9
-           [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,], // 0
-           [1, 1, 0, 0, 0, 0, 0, 1, 1, 1,], // 1
-           [1, 1, 0, 0, 2, 0, 0, 0, 0, 1,], // 2
-           [1, 0, 0, 0, 0, 2, 0, 0, 0, 1,], // 3
-           [1, 0, 0, 2, 0, 0, 2, 0, 0, 1,], // 4
-           [1, 0, 0, 0, 2, 0, 0, 0, 1, 1,], // 5
-           [1, 1, 1, 0, 0, 0, 0, 1, 1, 1,], // 6
-           [1, 1, 1, 0, 0, 1, 0, 0, 1, 1,], // 7
-           [1, 1, 1, 1, 1, 1, 0, 0, 1, 1,], // 8
-           [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,], // 9
+           [3, 1, 1, 1, 1, 1, 1, 1, 1, 3,], // 0
+           [3, 1, 0, 0, 0, 0, 0, 1, 1, 3,], // 1
+           [3, 1, 0, 0, 2, 0, 0, 0, 0, 3,], // 2
+           [3, 0, 0, 0, 0, 2, 0, 0, 0, 3,], // 3
+           [3, 0, 0, 2, 0, 0, 2, 0, 0, 3,], // 4
+           [3, 0, 0, 0, 2, 0, 0, 0, 1, 3,], // 5
+           [3, 1, 1, 0, 0, 0, 0, 1, 1, 3,], // 6
+           [3, 1, 1, 0, 0, 1, 0, 0, 1, 3,], // 7
+           [3, 1, 1, 1, 1, 1, 0, 0, 1, 3,], // 8
+           [3, 1, 1, 1, 1, 1, 1, 1, 1, 3,], // 9
            ], mapW = map.length, mapH = map[0].length;
 
 // Semi-constants
@@ -65,12 +65,12 @@ function init() {
 	projector = new t.Projector(); // Used in bullet projection
 	scene = new t.Scene(); // Holds all objects in the canvas
 	scene.fog = new t.FogExp2(0xD6F1FF, 0.0005); // color, density
-	
+
 	// Set up camera
 	cam = new t.PerspectiveCamera(60, ASPECT, 1, 10000); // FOV, aspect, near, far
 	cam.position.y = UNITSIZE * .2;
 	scene.add(cam);
-	
+
 	// Camera moves with mouse, flies around with WASD/arrow keys
 	controls = new t.FirstPersonControls(cam);
 	controls.movementSpeed = MOVESPEED;
@@ -80,21 +80,21 @@ function init() {
 
 	// World objects
 	setupScene();
-	
+
 	// Artificial Intelligence
 	setupAI();
-	
+
 	// Handle drawing as WebGL (faster than Canvas but less supported)
 	renderer = new t.WebGLRenderer();
 	renderer.setSize(WIDTH, HEIGHT);
-	
+
 	// Add the canvas to the document
 	renderer.domElement.style.backgroundColor = '#D6F1FF'; // easier to see
 	document.body.appendChild(renderer.domElement);
-	
+
 	// Track mouse position so we know where to shoot
 	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-	
+
 	// Shoot on click
 	$(document).click(function(e) {
 		e.preventDefault;
@@ -102,12 +102,12 @@ function init() {
 			createBullet();
 		}
 	});
-	
+
 	// Display HUD
 	$('body').append('<canvas id="radar" width="200" height="200"></canvas>');
 	$('body').append('<div id="hud"><p>Health: <span id="health">100</span><br />Score: <span id="score">0</span></p></div>');
 	$('body').append('<div id="credits"><p>Created by <a href="http://www.isaacsukin.com/">Isaac Sukin</a> using <a href="http://mrdoob.github.com/three.js/">Three.js</a><br />WASD to move, mouse to look, click to shoot</p></div>');
-	
+
 	// Set up "hurt" flash
 	$('body').append('<div id="hurt"></div>');
 	$('#hurt').css({width: WIDTH, height: HEIGHT,});
@@ -126,7 +126,7 @@ function render() {
 	var delta = clock.getDelta(), speed = delta * BULLETMOVESPEED;
 	var aispeed = delta * MOVESPEED;
 	controls.update(delta); // Move camera
-	
+
 	// Rotate the health cube
 	healthcube.rotation.x += 0.004
 	healthcube.rotation.y += 0.008;
@@ -192,7 +192,7 @@ function render() {
 			b.translateZ(speed * d.z);
 		}
 	}
-	
+
 	// Update AI.
 	for (var i = ai.length-1; i >= 0; i--) {
 		var a = ai[i];
@@ -247,7 +247,7 @@ function render() {
 	}
 
 	renderer.render(scene, cam); // Repaint
-	
+
 	// Death
 	if (health <= 0) {
 		runAnim = false;
@@ -285,12 +285,13 @@ function setupScene() {
 			new t.MeshLambertMaterial({color: 0xEDCBA0,/*map: t.ImageUtils.loadTexture('images/floor-1.jpg')*/})
 	);
 	scene.add(floor);
-	
+
 	// Geometry: walls
 	var cube = new t.CubeGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE);
 	var materials = [
 	                 new t.MeshLambertMaterial({/*color: 0x00CCAA,*/map: t.ImageUtils.loadTexture('images/wall-1.jpg')}),
 	                 new t.MeshLambertMaterial({/*color: 0xC5EDA0,*/map: t.ImageUtils.loadTexture('images/wall-2.jpg')}),
+                   new t.MeshLambertMaterial({/*color: 0xC5EDA0,*/map: t.ImageUtils.loadTexture('images/wall-3.jpg')}),
 	                 new t.MeshLambertMaterial({color: 0xFBEBCD}),
 	                 ];
 	for (var i = 0; i < mapW; i++) {
@@ -304,7 +305,7 @@ function setupScene() {
 			}
 		}
 	}
-	
+
 	// Health cube
 	healthcube = new t.Mesh(
 			new t.CubeGeometry(30, 30, 30),
@@ -312,7 +313,7 @@ function setupScene() {
 	);
 	healthcube.position.set(-UNITSIZE-15, 35, -UNITSIZE-15);
 	scene.add(healthcube);
-	
+
 	// Lighting
 	var directionalLight1 = new t.DirectionalLight( 0xF7EFBE, 0.7 );
 	directionalLight1.position.set( 0.5, 1, 0.5 );
@@ -476,10 +477,10 @@ function createBullet(obj) {
 		);
 	}
 	sphere.owner = obj;
-	
+
 	bullets.push(sphere);
 	scene.add(sphere);
-	
+
 	return sphere;
 }
 
@@ -527,6 +528,3 @@ $(window).blur(function() {
 function getRandBetween(lo, hi) {
  return parseInt(Math.floor(Math.random()*(hi-lo+1))+lo, 10);
 }
-
-
-
