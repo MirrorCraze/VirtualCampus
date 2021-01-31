@@ -5,7 +5,7 @@ Bringing the campus experience, virtually and in an immersive world, right to yo
 COVID-19 changed virtually every facet of life, making students stuck at their homes, unable to meet friends on campus to meet new people and experience university life. vCampus brings back the most important aspects of university life and makes students comfortable studying at home.
 
 ## Pitch Slides
-[PDF](https://firebasestorage.googleapis.com/v0/b/cityhack21-6404b.appspot.com/o/presentation%2F1612072194208_?alt=media&token=4393b412-45db-4fe2-bf85-6174c096fcc5)
+[PDF](https://firebasestorage.googleapis.com/v0/b/cityhack21-6404b.appspot.com/o/presentation%2F1612073123827_CityHack21(_)_CityHack21.pdf?alt=media&token=07964c12-049c-4a1b-83eb-caeaa2771e73)
 
 ## Contributors
 
