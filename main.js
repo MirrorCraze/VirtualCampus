@@ -309,23 +309,23 @@ const contentByType = {
   },
   [LT_2]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/98516955650?pwd=eUM1TmhSUU5uanhIZGhRV1ZRQlhzQT09'
+    url: 'https://zoom.us/j/96790242753?pwd=VGM4NkRhTCtPbGNVTEhWc2RkZDVHUT09'
   },
   [LT_3]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/98516955650?pwd=eUM1TmhSUU5uanhIZGhRV1ZRQlhzQT09'
+    url: 'https://zoom.us/j/96790242753?pwd=VGM4NkRhTCtPbGNVTEhWc2RkZDVHUT09'
   },
   [LT_4]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/98516955650?pwd=eUM1TmhSUU5uanhIZGhRV1ZRQlhzQT09'
+    url: 'https://zoom.us/j/96790242753?pwd=VGM4NkRhTCtPbGNVTEhWc2RkZDVHUT09'
   },
   [LT_5]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/98516955650?pwd=eUM1TmhSUU5uanhIZGhRV1ZRQlhzQT09'
+    url: 'https://zoom.us/j/96790242753?pwd=VGM4NkRhTCtPbGNVTEhWc2RkZDVHUT09'
   },
   [LT_6]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/98516955650?pwd=eUM1TmhSUU5uanhIZGhRV1ZRQlhzQT09'
+    url: 'https://zoom.us/j/96790242753?pwd=VGM4NkRhTCtPbGNVTEhWc2RkZDVHUT09'
   },
 }
 
@@ -381,7 +381,7 @@ function setupScene() {
                 // titleElement.html("Current Lecture")
                 document.querySelector("#video-modal-title").innerHTML = "Current Lecture"
                 const zoomLink = videoData.url;
-                const zoomIframeLink = `https://zoom.2vanx.com/?link=${encodeURIComponent(zoomLink)}&locale=en&userEmail=${encodeURIComponent(userEmail)}&userName=${encodeURIComponent(userName)}`
+                const zoomIframeLink = `https://zoom.2vanx.com/?link=${decodeURIComponent(zoomLink)}&locale=en&userEmail=${decodeURIComponent(userEmail)}&userName=${decodeURIComponent(userName)}`
                 $("#video-modal-body").html(`<iframe width="560" height="315" src="${zoomIframeLink}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <iframe src="https://minnit.chat/GroupClassroomChat?embed&&nickname=${encodeURIComponent(userName)}" style="border:none;width:90%;height:300px;" allowTransparency="true"></iframe>`)
                 break;
