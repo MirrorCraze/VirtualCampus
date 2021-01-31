@@ -13,24 +13,27 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-    <div class="container h-100">
-      <div class="row align-items-center h-100">
-        <div class="col-6 mx-auto">
-          <div class="p-4 card row justify-content-center align-self-center" style="width: 32rem;">
-            <img src="https://upload.wikimedia.org/wikipedia/en/4/4a/CityU_logo.svg" class="mb-2 d-flex align-self-center" style="width: 140px" />
-            <form action="app.html" method="get">
-              <div class="form-group">
-                <label for="userName">Your Name</label>
-                <input type="text" class="form-control" id="userName" name="userName" placeholder="Password">
-              </div>
-              <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-              </div>
-              <button type="submit" class="btn btn-primary">Go to App</button>
-            </form>
-          </div>
+    <div class="container d-flex align-items-center justify-content-center h-100">
+      <div class="row h-100">
+        <div class="p-4 card row justify-content-center align-self-center" style="width: 32rem;">
+          <img src="https://upload.wikimedia.org/wikipedia/en/4/4a/CityU_logo.svg" class="mb-2 d-flex align-self-center" style="width: 140px" />
+          <form action="app.html" method="get">
+            <div class="form-group">
+              <label for="userName">Your Name</label>
+              <input type="text" required class="form-control" id="userName" name="userName" autofocus autocomplete="name" placeholder="Enter your name here">
+              <small id="nameHelp" class="form-text text-muted">Your name will be used for chats and joining Zoom meetings.</small>
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" required class="form-control" id="email" name="email" autocomplete="email" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" required class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Go to App</button>
+          </form>
         </div>
       </div>
     </div>
