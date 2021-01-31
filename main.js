@@ -323,12 +323,12 @@ function setupScene() {
    new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
    new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-3.jpg') }),
    new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-4.jpg') }),
-   new t.MeshLambertMaterial({ color: 0xFBEBCD }),
-   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
-   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
-   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
-   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
-   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-5.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-6.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-5.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-6.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-5.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-6.jpg') }),
  ];
   for (var i = 0; i < mapW; i++) {
   	for (var j = 0, m = map[i].length; j < m; j++) {
