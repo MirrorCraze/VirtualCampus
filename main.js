@@ -4,59 +4,108 @@
  *   is vertical
  */
 
-var map = [ // 1  2  3  4  5  6  7  8  9
-           [3, 1, 1, 1, 1, 1, 1, 1, 1, 3,], // 0
-           [3, 1, 0, 0, 0, 0, 0, 1, 1, 3,], // 1
-           [3, 1, 0, 0, 2, 0, 0, 0, 0, 3,], // 2
-           [3, 0, 0, 0, 0, 2, 0, 0, 0, 3,], // 3
-           [3, 0, 0, 2, 0, 0, 2, 0, 0, 3,], // 4
-           [3, 0, 0, 0, 2, 0, 0, 0, 1, 3,], // 5
-           [3, 1, 1, 0, 0, 0, 0, 1, 1, 3,], // 6
-           [3, 1, 1, 0, 0, 1, 0, 0, 1, 3,], // 7
-           [3, 1, 1, 1, 1, 1, 0, 0, 1, 3,], // 8
-           [3, 1, 1, 1, 1, 1, 1, 1, 1, 3,], // 9
-           ], mapW = map.length, mapH = map[0].length;
-
+var mapW = 32, mapH = 32
+var map = [
+  [4,4,4,4,8,8,8,8,8,4,4,4,4,4,4,4,6,6,6,6,6,4,4,4,1,1,1,1,1,4,4,4],
+  [4,0,0,0,8,8,8,8,8,0,0,0,0,0,0,0,6,6,6,6,6,0,0,0,1,1,1,1,1,0,0,4],
+  [4,0,0,0,8,8,8,8,8,0,0,0,0,0,0,0,6,6,6,6,6,0,0,0,1,1,1,1,1,0,0,4],
+  [4,0,0,0,8,8,8,8,8,0,0,0,0,0,0,0,6,6,6,6,6,0,0,0,1,1,1,1,1,0,0,4],
+  [4,0,0,0,8,8,8,8,8,0,0,0,0,0,0,0,6,6,6,6,6,0,0,0,1,1,1,1,1,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,2,2,0,0,0,0,2,2,0,0,4],
+  [4,0,3,3,3,3,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,2,2,0,0,0,0,2,2,0,0,4],
+  [4,0,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,3,3,3,3,0,0,0,0,0,2,2,0,0,0,0,0,2,2,0,0,0,0,2,2,0,0,0,0,0,4],
+  [4,0,3,3,3,3,0,0,0,0,0,2,2,0,0,0,0,0,2,2,0,0,0,0,2,2,0,0,0,0,0,4],
+  [4,0,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,3,3,3,3,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,2,2,0,0,0,0,2,2,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,2,2,0,0,0,0,2,2,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4],
+  [4,0,0,0,9,9,9,9,9,0,0,0,0,0,0,0,7,7,7,7,7,0,0,0,5,5,5,5,5,0,0,4],
+  [4,0,0,0,9,9,9,9,9,0,0,0,0,0,0,0,7,7,7,7,7,0,0,0,5,5,5,5,5,0,0,4],
+  [4,0,0,0,9,9,9,9,9,0,0,0,0,0,0,0,7,7,7,7,7,0,0,0,5,5,5,5,5,0,0,4],
+  [4,0,0,0,9,9,9,9,9,0,0,0,0,0,0,0,7,7,7,7,7,0,0,0,5,5,5,5,5,0,0,4],
+  [4,4,4,4,9,9,9,9,9,4,4,4,4,4,4,4,7,7,7,7,7,4,4,4,5,5,5,5,5,4,4,4],
+]
+var mapClassroom = [ //0 = no seat, 1 = seat
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,1,1,1,1,1,1,1,0,0,0],
+  [0,0,0,1,1,1,1,1,1,1,0,0,0],
+  [0,0,1,1,1,1,1,1,1,1,1,0,0],
+  [0,0,1,1,1,1,1,1,1,1,1,0,0],
+  [0,1,1,1,1,1,1,1,1,1,1,1,0],
+  [0,1,1,1,1,1,1,1,1,1,1,1,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+]
 // Semi-constants
 var WIDTH = window.innerWidth,
 	HEIGHT = window.innerHeight,
 	ASPECT = WIDTH / HEIGHT,
 	UNITSIZE = 250,
 	WALLHEIGHT = UNITSIZE / 3,
-	MOVESPEED = 100,
+	MOVESPEED = 1000,
 	LOOKSPEED = 0.075,
 	BULLETMOVESPEED = MOVESPEED * 5,
 	NUMAI = 5,
 	PROJECTILEDAMAGE = 20;
 // Global vars
 var t = THREE, scene, cam, renderer, controls, clock, projector, model, skin;
-var runAnim = true, mouse = { x: 0, y: 0 }, kills = 0, health = 100;
-var healthCube, lastHealthPickup = 0;
-/*
-var finder = new PF.AStarFinder({ // Defaults to Manhattan heuristic
-	allowDiagonal: true,
-}), grid = new PF.Grid(mapW, mapH, map);
-*/
+var runAnim = true, mouse = { x: 0, y: 0 };
+
+// Read a page's GET URL variables and return them as an object.
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
 
 // Initialize and run on document ready
 $(document).ready(function() {
 	$('body').append('<div id="intro">Click to start</div>');
+  $('#floating-message').css("display", "none")
 	$('#intro').css({width: WIDTH, height: HEIGHT}).one('click', function(e) {
 		e.preventDefault();
 		$(this).fadeOut();
 		init();
-		setInterval(drawRadar, 1000);
+		setInterval(drawRadar, 16);
 		animate();
 	});
-	/*
-	new t.ColladaLoader().load('models/Yoshi/Yoshi.dae', function(collada) {
-		model = collada.scene;
-		skin = collada.skins[0];
-		model.scale.set(0.2, 0.2, 0.2);
-		model.position.set(0, 5, 0);
-		scene.add(model);
-	});
-	*/
+  $("#video-modal").on("show.bs.modal", function (event) {
+    if (controls) controls.freeze = true;
+    $('.overlay').show();
+    $("#three-renderer").off();
+    let button = $(event.relatedTarget); // Button that triggered the modal
+    let url = button.data("video");      // Extract url from data-video attribute
+    $(this).find("iframe").attr({
+        src : url,
+        allow : "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    });
+  }).on("hide.bs.modal", function () {
+    if (controls) controls.freeze = false;
+    $('.overlay').hide();
+    $("#three-renderer").on();
+  }).on("hidden.bs.modal", function() {
+    $("#video-modal iframe").removeAttr("src allow");
+  });
 });
 
 // Setup
@@ -81,32 +130,36 @@ function init() {
 	// World objects
 	setupScene();
 
-	// Artificial Intelligence
-	setupAI();
 
 	// Handle drawing as WebGL (faster than Canvas but less supported)
-	renderer = new t.WebGLRenderer();
+	renderer = new t.WebGLRenderer({
+    alpha: true
+  });
 	renderer.setSize(WIDTH, HEIGHT);
 
 	// Add the canvas to the document
+  renderer.domElement.id = "three-renderer"
 	renderer.domElement.style.backgroundColor = '#D6F1FF'; // easier to see
 	document.body.appendChild(renderer.domElement);
+  // <div class="overlay"></div>
 
+  // Add an overlay to block canvas from receiving mouse events
+  const blockerDiv = document.createElement("div");
+  blockerDiv.classList.add("overlay");
+  document.body.appendChild(blockerDiv)
+
+  const throttledOnMouseMove = _.throttle(onDocumentMouseMove, 16);
 	// Track mouse position so we know where to shoot
-	document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+	document.addEventListener( 'mousemove', throttledOnMouseMove, false );
+  document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 
-	// Shoot on click
-	$(document).click(function(e) {
-		e.preventDefault;
-		if (e.which === 1) { // Left click only
-			createBullet();
-		}
-	});
 
+  const cityULogoLink = 'https://upload.wikimedia.org/wikipedia/en/4/4a/CityU_logo.svg';
 	// Display HUD
-	$('body').append('<canvas id="radar" width="200" height="200"></canvas>');
-	$('body').append('<div id="hud"><p>Health: <span id="health">100</span><br />Score: <span id="score">0</span></p></div>');
-	$('body').append('<div id="credits"><p>Created by <a href="http://www.isaacsukin.com/">Isaac Sukin</a> using <a href="http://mrdoob.github.com/three.js/">Three.js</a><br />WASD to move, mouse to look, click to shoot</p></div>');
+	$('body').append('<canvas id="radar" width="225" height="225"></canvas>');
+	$('body').append('<div id="credits" class="glass"><div><img src="' + cityULogoLink +  '" alt="CityU Logo" id="cityu-logo" /></div></div>');
+  $('body').append('<div id="instructions" class="glass">WASD: Move Characters<br />Hover over a room to learn more.</div>');
+  $('body').append('<div id="credits-text" class="glass">Created by team CityHack21(?)<br />Based on <a href="https://github.com/IceCreamYou/Nemesis">Nemesis</a> by <a href="http://www.isaacsukin.com/">Isaac Sukin</a><br />Powered by <a href="http://mrdoob.github.com/three.js/">Three.js</a></div>')
 
 	// Set up "hurt" flash
 	$('body').append('<div id="hurt"></div>');
@@ -126,193 +179,143 @@ function render() {
 	var delta = clock.getDelta(), speed = delta * BULLETMOVESPEED;
 	var aispeed = delta * MOVESPEED;
 	controls.update(delta); // Move camera
-
-	// Rotate the health cube
-	healthcube.rotation.x += 0.004
-	healthcube.rotation.y += 0.008;
-	// Allow picking it up once per minute
-	if (Date.now() > lastHealthPickup + 60000) {
-		if (distance(cam.position.x, cam.position.z, healthcube.position.x, healthcube.position.z) < 15 && health != 100) {
-			health = Math.min(health + 50, 100);
-			$('#health').html(health);
-			lastHealthPickup = Date.now();
-		}
-		healthcube.material.wireframe = false;
-	}
-	else {
-		healthcube.material.wireframe = true;
-	}
-
-	// Update bullets. Walk backwards through the list so we can remove items.
-	for (var i = bullets.length-1; i >= 0; i--) {
-		var b = bullets[i], p = b.position, d = b.ray.direction;
-		if (checkWallCollision(p)) {
-			bullets.splice(i, 1);
-			scene.remove(b);
-			continue;
-		}
-		// Collide with AI
-		var hit = false;
-		for (var j = ai.length-1; j >= 0; j--) {
-			var a = ai[j];
-			var v = a.geometry.vertices[0];
-			var c = a.position;
-			var x = Math.abs(v.x), z = Math.abs(v.z);
-			//console.log(Math.round(p.x), Math.round(p.z), c.x, c.z, x, z);
-			if (p.x < c.x + x && p.x > c.x - x &&
-					p.z < c.z + z && p.z > c.z - z &&
-					b.owner != a) {
-				bullets.splice(i, 1);
-				scene.remove(b);
-				a.health -= PROJECTILEDAMAGE;
-				var color = a.material.color, percent = a.health / 100;
-				a.material.color.setRGB(
-						percent * color.r,
-						percent * color.g,
-						percent * color.b
-				);
-				hit = true;
-				break;
-			}
-		}
-		// Bullet hits player
-		if (distance(p.x, p.z, cam.position.x, cam.position.z) < 25 && b.owner != cam) {
-			$('#hurt').fadeIn(75);
-			health -= 10;
-			if (health < 0) health = 0;
-			val = health < 25 ? '<span style="color: darkRed">' + health + '</span>' : health;
-			$('#health').html(val);
-			bullets.splice(i, 1);
-			scene.remove(b);
-			$('#hurt').fadeOut(350);
-		}
-		if (!hit) {
-			b.translateX(speed * d.x);
-			//bullets[i].translateY(speed * bullets[i].direction.y);
-			b.translateZ(speed * d.z);
-		}
-	}
-
-	// Update AI.
-	for (var i = ai.length-1; i >= 0; i--) {
-		var a = ai[i];
-		if (a.health <= 0) {
-			ai.splice(i, 1);
-			scene.remove(a);
-			kills++;
-			$('#score').html(kills * 100);
-			addAI();
-		}
-		// Move AI
-		var r = Math.random();
-		if (r > 0.995) {
-			a.lastRandomX = Math.random() * 2 - 1;
-			a.lastRandomZ = Math.random() * 2 - 1;
-		}
-		a.translateX(aispeed * a.lastRandomX);
-		a.translateZ(aispeed * a.lastRandomZ);
-		var c = getMapSector(a.position);
-		if (c.x < 0 || c.x >= mapW || c.y < 0 || c.y >= mapH || checkWallCollision(a.position)) {
-			a.translateX(-2 * aispeed * a.lastRandomX);
-			a.translateZ(-2 * aispeed * a.lastRandomZ);
-			a.lastRandomX = Math.random() * 2 - 1;
-			a.lastRandomZ = Math.random() * 2 - 1;
-		}
-		if (c.x < -1 || c.x > mapW || c.z < -1 || c.z > mapH) {
-			ai.splice(i, 1);
-			scene.remove(a);
-			addAI();
-		}
-		/*
-		var c = getMapSector(a.position);
-		if (a.pathPos == a.path.length-1) {
-			console.log('finding new path for '+c.x+','+c.z);
-			a.pathPos = 1;
-			a.path = getAIpath(a);
-		}
-		var dest = a.path[a.pathPos], proportion = (c.z-dest[1])/(c.x-dest[0]);
-		a.translateX(aispeed * proportion);
-		a.translateZ(aispeed * 1-proportion);
-		console.log(c.x, c.z, dest[0], dest[1]);
-		if (c.x == dest[0] && c.z == dest[1]) {
-			console.log(c.x+','+c.z+' reached destination');
-			a.PathPos++;
-		}
-		*/
-		var cc = getMapSector(cam.position);
-		if (Date.now() > a.lastShot + 750 && distance(c.x, c.z, cc.x, cc.z) < 2) {
-			createBullet(a);
-			a.lastShot = Date.now();
-		}
-	}
-
 	renderer.render(scene, cam); // Repaint
+}
 
-	// Death
-	if (health <= 0) {
-		runAnim = false;
-		$(renderer.domElement).fadeOut();
-		$('#radar, #hud, #credits').fadeOut();
-		$('#intro').fadeIn();
-		$('#intro').html('Ouch! Click to restart...');
-		$('#intro').one('click', function() {
-			location = location;
-			/*
-			$(renderer.domElement).fadeIn();
-			$('#radar, #hud, #credits').fadeIn();
-			$(this).fadeOut();
-			runAnim = true;
-			animate();
-			health = 100;
-			$('#health').html(health);
-			kills--;
-			if (kills <= 0) kills = 0;
-			$('#score').html(kills * 100);
-			cam.translateX(-cam.position.x);
-			cam.translateZ(-cam.position.z);
-			*/
-		});
-	}
+var hash = new Map()
+
+// Constants for types of objects
+// The index of materials follow the different types of objects below
+const WALKABLE_PATH = 0;
+const CHAIR_TO_SIT = 2;
+const AC1_STAGE = 3;
+const AC1_WALL = 4;
+const LT_1 = 1;
+const LT_2 = 5;
+const LT_3 = 6;
+const LT_4 = 7;
+const LT_5 = 8;
+const LT_6 = 9;
+
+const messageByType = {
+  [CHAIR_TO_SIT]: 'Chill with Friends',
+  [AC1_STAGE]: 'Attend concert',
+  [LT_1]: 'Attend class MA1200',
+  [LT_2]: 'Attend class CS1200',
+  [LT_3]: 'Attend class GE1501',
+  [LT_4]: 'Attend class GE1401',
+  [LT_5]: 'Attend class CS2402',
+  [LT_6]: 'Attend class CS2204',
+}
+
+const contentByType = {
+  [CHAIR_TO_SIT]: {
+    contentType: 'chat'
+  },
+  [AC1_STAGE]: {
+    contentType: 'youtube-live',
+    url: 'https://www.youtube.com/embed/94geQ2tKyXA'
+  },
+  [LT_1]: {
+    contentType: 'youtube',
+    url: 'https://www.youtube.com/embed/oeYBdghaIjc'
+  },
+  [LT_2]: {
+    contentType: 'zoom',
+    url: 'https://zoom.us/j/98516955650?pwd=eUM1TmhSUU5uanhIZGhRV1ZRQlhzQT09'
+  },
+  [LT_3]: {
+    contentType: 'zoom',
+    url: 'https://zoom.us/j/98516955650?pwd=eUM1TmhSUU5uanhIZGhRV1ZRQlhzQT09'
+  },
+  [LT_4]: {
+    contentType: 'zoom',
+    url: 'https://zoom.us/j/98516955650?pwd=eUM1TmhSUU5uanhIZGhRV1ZRQlhzQT09'
+  },
+  [LT_5]: {
+    contentType: 'zoom',
+    url: 'https://zoom.us/j/98516955650?pwd=eUM1TmhSUU5uanhIZGhRV1ZRQlhzQT09'
+  },
+  [LT_6]: {
+    contentType: 'zoom',
+    url: 'https://zoom.us/j/98516955650?pwd=eUM1TmhSUU5uanhIZGhRV1ZRQlhzQT09'
+  },
 }
 
 // Set up the objects in the world
 function setupScene() {
 	var UNITSIZE = 250, units = mapW;
 
+  const floorTexture = new THREE.TextureLoader().load('images/tiled-floor.jpg');
+  floorTexture.wrapS = THREE.RepeatWrapping;
+  floorTexture.wrapT = THREE.RepeatWrapping;
+  floorTexture.repeat.set(40, 40);
+
 	// Geometry: floor
 	var floor = new t.Mesh(
-			new t.CubeGeometry(units * UNITSIZE, 10, units * UNITSIZE),
-			new t.MeshLambertMaterial({color: 0xEDCBA0,/*map: t.ImageUtils.loadTexture('images/floor-1.jpg')*/})
+			new t.BoxGeometry(units * UNITSIZE, 10, units * UNITSIZE),
+			new t.MeshLambertMaterial({color: 0xEDCBA0, map: floorTexture })
 	);
 	scene.add(floor);
 
 	// Geometry: walls
-	var cube = new t.CubeGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE);
+	var cube = new t.BoxGeometry(UNITSIZE, WALLHEIGHT, UNITSIZE);
 	var materials = [
-	                 new t.MeshLambertMaterial({/*color: 0x00CCAA,*/map: t.ImageUtils.loadTexture('images/wall-1.jpg')}),
-	                 new t.MeshLambertMaterial({/*color: 0xC5EDA0,*/map: t.ImageUtils.loadTexture('images/wall-2.jpg')}),
-                   new t.MeshLambertMaterial({/*color: 0xC5EDA0,*/map: t.ImageUtils.loadTexture('images/wall-3.jpg')}),
-	                 new t.MeshLambertMaterial({color: 0xFBEBCD}),
-	                 ];
-	for (var i = 0; i < mapW; i++) {
-		for (var j = 0, m = map[i].length; j < m; j++) {
-			if (map[i][j]) {
-				var wall = new t.Mesh(cube, materials[map[i][j]-1]);
-				wall.position.x = (i - units/2) * UNITSIZE;
-				wall.position.y = WALLHEIGHT/2;
-				wall.position.z = (j - units/2) * UNITSIZE;
-				scene.add(wall);
-			}
-		}
-	}
-
-	// Health cube
-	healthcube = new t.Mesh(
-			new t.CubeGeometry(30, 30, 30),
-			new t.MeshBasicMaterial({map: t.ImageUtils.loadTexture('images/health.png')})
-	);
-	healthcube.position.set(-UNITSIZE-15, 35, -UNITSIZE-15);
-	scene.add(healthcube);
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-1.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-3.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-4.jpg') }),
+   new t.MeshLambertMaterial({ color: 0xFBEBCD }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
+   new t.MeshLambertMaterial({ map: new THREE.TextureLoader().load('images/wall-2.jpg') }),
+ ];
+  for (var i = 0; i < mapW; i++) {
+  	for (var j = 0, m = map[i].length; j < m; j++) {
+  		if (map[i][j]) {
+        const materialIndex = map[i][j] - 1;
+  			var wall = new t.Mesh(cube, materials[materialIndex]);
+        wall.userData.type = materialIndex + 1;
+  			wall.position.x = (i - units/2) * UNITSIZE;
+  			wall.position.y = WALLHEIGHT/2;
+  			wall.position.z = (j - units/2) * UNITSIZE;
+        wall.callback = function () {
+          if (!$("#video-modal").is(':visible')) {
+            $('#video-modal').modal('show');
+            const videoData = contentByType[materialIndex + 1];
+            const titleElement = $("#video-modal-title");
+            const query = getUrlVars()
+            const userEmail = query.email || 'michalim3-c@my.cityu.edu.hk'
+            const userName = query.userName || 'Michael Lim';
+            switch (videoData.contentType) {
+              case 'zoom':
+                // titleElement.html("Current Lecture")
+                document.querySelector("#video-modal-title").innerHTML = "Current Lecture"
+                const zoomLink = videoData.url;
+                const zoomIframeLink = `https://zoom.2vanx.com/?link=${encodeURIComponent(zoomLink)}&locale=en&userEmail=${encodeURIComponent(userEmail)}&userName=${encodeURIComponent(userName)}`
+                $("#video-modal-body").html(`<iframe width="560" height="315" src="${zoomIframeLink}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)
+                break;
+              case 'youtube':
+                document.querySelector("#video-modal-title").innerHTML = "Lecture Recording"
+                $("#video-modal-body").html(`<iframe width="560" height="315" src="${videoData.url}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)
+                break;
+              case 'youtube-live':
+                document.querySelector("#video-modal-title").innerHTML = "Live Concert"
+                $("#video-modal-body").html(`<iframe width="560" height="315" src="${videoData.url}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)
+                break;
+              case 'chat':
+                document.querySelector("#video-modal-title").innerHTML = "Chill with Friends";
+                $("#video-modal-body").html(`<iframe src="https://minnit.chat/chillwithfriends?embed&&nickname=${encodeURIComponent(userName)}" style="border:none;width:90%;height:500px;" allowTransparency="true"></iframe><br><a href="https://minnit.chat/chillwithfriends" target="_blank">Add a chatroom to your website for free with Minnit Chat</a>`)
+            }
+          }
+        }
+        hash.set(`${i}::${j}`, wall)
+  			scene.add(wall);
+  		}
+  	}
+  }
 
 	// Lighting
 	var directionalLight1 = new t.DirectionalLight( 0xF7EFBE, 0.7 );
@@ -323,76 +326,10 @@ function setupScene() {
 	scene.add( directionalLight2 );
 }
 
-var ai = [];
-var aiGeo = new t.CubeGeometry(40, 40, 40);
-function setupAI() {
-	for (var i = 0; i < NUMAI; i++) {
-		addAI();
-	}
-}
-
-function addAI() {
-	var c = getMapSector(cam.position);
-	var aiMaterial = new t.MeshBasicMaterial({/*color: 0xEE3333,*/map: t.ImageUtils.loadTexture('images/face.png')});
-	var o = new t.Mesh(aiGeo, aiMaterial);
-	do {
-		var x = getRandBetween(0, mapW-1);
-		var z = getRandBetween(0, mapH-1);
-	} while (map[x][z] > 0 || (x == c.x && z == c.z));
-	x = Math.floor(x - mapW/2) * UNITSIZE;
-	z = Math.floor(z - mapW/2) * UNITSIZE;
-	o.position.set(x, UNITSIZE * 0.15, z);
-	o.health = 100;
-	//o.path = getAIpath(o);
-	o.pathPos = 1;
-	o.lastRandomX = Math.random();
-	o.lastRandomZ = Math.random();
-	o.lastShot = Date.now(); // Higher-fidelity timers aren't a big deal here.
-	ai.push(o);
-	scene.add(o);
-}
-
-function getAIpath(a) {
-	var p = getMapSector(a.position);
-	do { // Cop-out
-		do {
-			var x = getRandBetween(0, mapW-1);
-			var z = getRandBetween(0, mapH-1);
-		} while (map[x][z] > 0 || distance(p.x, p.z, x, z) < 3);
-		var path = findAIpath(p.x, p.z, x, z);
-	} while (path.length == 0);
-	return path;
-}
-
-/**
- * Find a path from one grid cell to another.
- *
- * @param sX
- *   Starting grid x-coordinate.
- * @param sZ
- *   Starting grid z-coordinate.
- * @param eX
- *   Ending grid x-coordinate.
- * @param eZ
- *   Ending grid z-coordinate.
- * @returns
- *   An array of coordinates including the start and end positions representing
- *   the path from the starting cell to the ending cell.
- */
-function findAIpath(sX, sZ, eX, eZ) {
-	var backupGrid = grid.clone();
-	var path = finder.findPath(sX, sZ, eX, eZ, grid);
-	grid = backupGrid;
-	return path;
-}
-
-function distance(x1, y1, x2, y2) {
-	return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
-}
-
 function getMapSector(v) {
+  // TODO: Remove this shitty max
 	var x = Math.floor((v.x + UNITSIZE / 2) / UNITSIZE + mapW/2);
-	var z = Math.floor((v.z + UNITSIZE / 2) / UNITSIZE + mapW/2);
+	var z = Math.floor((v.z + UNITSIZE / 2) / UNITSIZE + mapH/2);
 	return {x: x, z: z};
 }
 
@@ -410,6 +347,85 @@ function checkWallCollision(v) {
 	return map[c.x][c.z] > 0;
 }
 
+function resetAllEmissiveness() {
+  for (let plane of hash.values()) {
+    plane.material.emissive = new THREE.Color('black')
+  }
+}
+
+function setEmissivenessByObjectType(type) {
+  const floatingElement = document.querySelector('#floating-message');
+  floatingElement.innerHTML = messageByType[type]
+  $('#floating-message').fadeIn(75, function () {
+    $('#floating-message').css("display", "flex")
+  })
+  for (let plane of hash.values()) {
+    if (plane.userData.type === type) {
+      plane.material.emissive = new THREE.Color('white')
+    }
+  }
+}
+
+function onDocumentMouseMove(event) {
+    var mouse = new THREE.Vector2();
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+    let planes = []
+    for (let plane of hash.values()) {
+      planes.push(plane)
+    }
+    var raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera( mouse, cam );
+    var intersects = raycaster.intersectObjects( planes );
+    var nonPathIntersects = intersects.filter(({ object }) => ![WALKABLE_PATH, AC1_WALL].includes(object.userData.type));
+    const hasIntersectingObjects = nonPathIntersects.length > 0;
+
+    resetAllEmissiveness();
+    if (hasIntersectingObjects) {
+      nonPathIntersects.sort((a, b) => a.distance - b.distance);
+      const nearestIntersectingObject = nonPathIntersects.shift();
+      const intersectMaterialType = nearestIntersectingObject.object.userData.type;
+      setEmissivenessByObjectType(intersectMaterialType);
+    } else {
+      $('#floating-message').fadeOut(300)
+    }
+}
+
+function onDocumentMouseDown( event ) {
+    event.preventDefault();
+    var mouse = new THREE.Vector2();
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+    let planes = []
+    for (let plane of hash.values()) {
+      planes.push(plane)
+    }
+    var raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera( mouse, cam );
+    var intersects = raycaster.intersectObjects( planes );
+    var nonPathIntersects = intersects.filter(({ object }) => ![WALKABLE_PATH, AC1_WALL].includes(object.userData.type));
+    const hasIntersectingObjects = nonPathIntersects.length > 0;
+    if (hasIntersectingObjects) {
+      nonPathIntersects.sort((a, b) => a.distance - b.distance);
+      const nearestIntersectingObject = nonPathIntersects.shift();
+      nearestIntersectingObject.object.callback()
+    }
+}
+
+const colorByType = {
+  [CHAIR_TO_SIT]: '#7E481C',
+  [AC1_STAGE]: '#2C1503',
+  [AC1_WALL]: '#000000',
+  [LT_1]: '#DC143C',
+  [LT_2]: '#DC143C',
+  [LT_3]: '#FABD02',
+  [LT_4]: '#FABD02',
+  [LT_5]: '#03254C',
+  [LT_6]: '#03254C',
+}
+
 // Radar
 function drawRadar() {
 	var c = getMapSector(cam.position), context = document.getElementById('radar').getContext('2d');
@@ -417,87 +433,33 @@ function drawRadar() {
 	for (var i = 0; i < mapW; i++) {
 		for (var j = 0, m = map[i].length; j < m; j++) {
 			var d = 0;
-			for (var k = 0, n = ai.length; k < n; k++) {
-				var e = getMapSector(ai[k].position);
-				if (i == e.x && j == e.z) {
-					d++;
-				}
-			}
+      const multiplier = 7; // Multiplier to determine scale of objects in radar
 			if (i == c.x && j == c.z && d == 0) {
-				context.fillStyle = '#0000FF';
-				context.fillRect(i * 20, j * 20, (i+1)*20, (j+1)*20);
+				context.fillStyle = '#000000';
+				context.fillRect(i * multiplier, j * multiplier, (i+1)*multiplier, (j+1)*multiplier);
 			}
 			else if (i == c.x && j == c.z) {
 				context.fillStyle = '#AA33FF';
-				context.fillRect(i * 20, j * 20, (i+1)*20, (j+1)*20);
+				context.fillRect(i * multiplier, j * multiplier, (i+1)*multiplier, (j+1)*multiplier);
 				context.fillStyle = '#000000';
-				context.fillText(''+d, i*20+8, j*20+12);
+				context.fillText(''+d, i*multiplier+8, j*multiplier+12);
 			}
 			else if (d > 0 && d < 10) {
 				context.fillStyle = '#FF0000';
-				context.fillRect(i * 20, j * 20, (i+1)*20, (j+1)*20);
+				context.fillRect(i * multiplier, j * multiplier, (i+1)*multiplier, (j+1)*multiplier);
 				context.fillStyle = '#000000';
-				context.fillText(''+d, i*20+8, j*20+12);
+				context.fillText(''+d, i*multiplier+8, j*multiplier+12);
 			}
 			else if (map[i][j] > 0) {
-				context.fillStyle = '#666666';
-				context.fillRect(i * 20, j * 20, (i+1)*20, (j+1)*20);
+				context.fillStyle = colorByType[map[i][j]];
+				context.fillRect(i * multiplier, j * multiplier, (i+1)*multiplier, (j+1)*multiplier);
 			}
 			else {
 				context.fillStyle = '#CCCCCC';
-				context.fillRect(i * 20, j * 20, (i+1)*20, (j+1)*20);
+				context.fillRect(i * multiplier, j * multiplier, (i+1)*multiplier, (j+1)*multiplier);
 			}
 		}
 	}
-}
-
-var bullets = [];
-var sphereMaterial = new t.MeshBasicMaterial({color: 0x333333});
-var sphereGeo = new t.SphereGeometry(2, 6, 6);
-function createBullet(obj) {
-	if (obj === undefined) {
-		obj = cam;
-	}
-	var sphere = new t.Mesh(sphereGeo, sphereMaterial);
-	sphere.position.set(obj.position.x, obj.position.y * 0.8, obj.position.z);
-
-	if (obj instanceof t.Camera) {
-		var vector = new t.Vector3(mouse.x, mouse.y, 1);
-		projector.unprojectVector(vector, obj);
-		sphere.ray = new t.Ray(
-				obj.position,
-				vector.subSelf(obj.position).normalize()
-		);
-	}
-	else {
-		var vector = cam.position.clone();
-		sphere.ray = new t.Ray(
-				obj.position,
-				vector.subSelf(obj.position).normalize()
-		);
-	}
-	sphere.owner = obj;
-
-	bullets.push(sphere);
-	scene.add(sphere);
-
-	return sphere;
-}
-
-/*
-function loadImage(path) {
-	var image = document.createElement('img');
-	var texture = new t.Texture(image, t.UVMapping);
-	image.onload = function() { texture.needsUpdate = true; };
-	image.src = path;
-	return texture;
-}
-*/
-
-function onDocumentMouseMove(e) {
-	e.preventDefault();
-	mouse.x = (e.clientX / WIDTH) * 2 - 1;
-	mouse.y = - (e.clientY / HEIGHT) * 2 + 1;
 }
 
 // Handle window resizing
@@ -515,16 +477,10 @@ $(window).resize(function() {
 	$('#intro, #hurt').css({width: WIDTH, height: HEIGHT,});
 });
 
-// Stop moving around when the window is unfocused (keeps my sanity!)
+// Stop moving around when the window is unfocused
 $(window).focus(function() {
 	if (controls) controls.freeze = false;
 });
 $(window).blur(function() {
 	if (controls) controls.freeze = true;
 });
-
-//Get a random integer between lo and hi, inclusive.
-//Assumes lo and hi are integers and lo is lower than hi.
-function getRandBetween(lo, hi) {
- return parseInt(Math.floor(Math.random()*(hi-lo+1))+lo, 10);
-}

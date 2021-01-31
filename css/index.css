@@ -1,0 +1,8 @@
+body {
+  background-image: url('https://www.cb.cityu.edu.hk/exchange/images/team_ac3.jpg');
+  background-size: cover;
+}
+
+html,body {
+  height: 100%;
+}
