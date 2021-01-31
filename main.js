@@ -353,7 +353,8 @@ function setupScene() {
                 document.querySelector("#video-modal-title").innerHTML = "Current Lecture"
                 const zoomLink = videoData.url;
                 const zoomIframeLink = `https://zoom.2vanx.com/?link=${encodeURIComponent(zoomLink)}&locale=en&userEmail=${encodeURIComponent(userEmail)}&userName=${encodeURIComponent(userName)}`
-                $("#video-modal-body").html(`<iframe width="560" height="315" src="${zoomIframeLink}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`)
+                $("#video-modal-body").html(`<iframe width="560" height="315" src="${zoomIframeLink}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://minnit.chat/GroupClassroomChat?embed&&nickname=${encodeURIComponent(userName)}" style="border:none;width:90%;height:300px;" allowTransparency="true"></iframe>`)
                 break;
               case 'youtube':
                 document.querySelector("#video-modal-title").innerHTML = "Lecture Recording"
@@ -365,7 +366,10 @@ function setupScene() {
                 break;
               case 'chat':
                 document.querySelector("#video-modal-title").innerHTML = "Chill with Friends";
-                $("#video-modal-body").html(`<iframe src="https://minnit.chat/chillwithfriends?embed&&nickname=${encodeURIComponent(userName)}" style="border:none;width:90%;height:500px;" allowTransparency="true"></iframe><br><a href="https://minnit.chat/chillwithfriends" target="_blank">Add a chatroom to your website for free with Minnit Chat</a>`)
+                $("#video-modal-body").html(`
+                  <iframe src="https://minnit.chat/chillwithfriends?embed&&nickname=${encodeURIComponent(userName)}" style="border:none;width:90%;height:500px;" allowTransparency="true"></iframe><br>
+                  `)
+
             }
           }
         }
