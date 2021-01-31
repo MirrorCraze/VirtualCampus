@@ -55,7 +55,7 @@ var WIDTH = window.innerWidth,
 	ASPECT = WIDTH / HEIGHT,
 	UNITSIZE = 250,
 	WALLHEIGHT = UNITSIZE / 3,
-	MOVESPEED = 1000,
+	MOVESPEED = 500,
 	LOOKSPEED = 0.075,
 	BULLETMOVESPEED = MOVESPEED * 5,
 	NUMAI = 5,
@@ -126,7 +126,7 @@ function init() {
 	controls.lookSpeed = LOOKSPEED;
 	controls.lookVertical = false; // Temporary solution; play on flat surfaces only
 	controls.noFly = true;
-
+  setupAI();
 	// World objects
 	setupScene();
 
@@ -180,9 +180,67 @@ function render() {
 	var aispeed = delta * MOVESPEED;
 	controls.update(delta); // Move camera
 	renderer.render(scene, cam); // Repaint
+  //AI
+  for (var i = ai.length-1; i >= 0; i--) {
+		var a = ai[i];
+		if (a.health <= 0) {
+			ai.splice(i, 1);
+			scene.remove(a);
+			kills++;
+			$('#score').html(kills * 100);
+			addAI();
+		}
+		// Move AI
+		var r = Math.random();
+		if (r > 0.995) {
+			a.lastRandomX = Math.random() * 2 - 1;
+			a.lastRandomZ = Math.random() * 2 - 1;
+		}
+		a.translateX(aispeed * a.lastRandomX);
+		a.translateZ(aispeed * a.lastRandomZ);
+		var c = getMapSector(a.position);
+		if (c.x < 0 || c.x >= mapW || c.y < 0 || c.y >= mapH || checkWallCollision(a.position)) {
+			a.translateX(-2 * aispeed * a.lastRandomX);
+			a.translateZ(-2 * aispeed * a.lastRandomZ);
+			a.lastRandomX = Math.random() * 2 - 1;
+			a.lastRandomZ = Math.random() * 2 - 1;
+		}
+		if (c.x < -1 || c.x > mapW || c.z < -1 || c.z > mapH) {
+			ai.splice(i, 1);
+			scene.remove(a);
+			addAI();
+		}
+  }
+}
+var ai = [];
+var aiGeo = new t.BoxGeometry(40, 40, 40);
+function setupAI() {
+	for (var i = 0; i < NUMAI; i++) {
+		addAI();
+	}
 }
 
-var hash = new Map()
+function addAI() {
+	var c = getMapSector(cam.position);
+	var aiMaterial = new t.MeshBasicMaterial({/*color: 0xEE3333,*/map: t.ImageUtils.loadTexture('images/image_cropped_face.jpg')});
+	var o = new t.Mesh(aiGeo, aiMaterial);
+	do {
+		var x = getRandBetween(0, mapW-1);
+		var z = getRandBetween(0, mapH-1);
+	} while (map[x][z] > 0 || (x == c.x && z == c.z));
+	x = Math.floor(x - mapW/2) * UNITSIZE;
+	z = Math.floor(z - mapW/2) * UNITSIZE;
+	o.position.set(x, UNITSIZE * 0.15, z);
+	//o.path = getAIpath(o);
+	o.pathPos = 1;
+	o.lastRandomX = Math.random();
+	o.lastRandomZ = Math.random();
+	o.lastShot = Date.now(); // Higher-fidelity timers aren't a big deal here.
+	ai.push(o);
+	scene.add(o);
+}
+
+var hash = new Map();
 
 // Constants for types of objects
 // The index of materials follow the different types of objects below
@@ -426,6 +484,26 @@ const colorByType = {
   [LT_6]: '#03254C',
 }
 
+function addAI() {
+	var c = getMapSector(cam.position);
+	var aiMaterial = new t.MeshBasicMaterial({map: t.ImageUtils.loadTexture('images/img_cropped_face.jpg')});
+	var o = new t.Mesh(aiGeo, aiMaterial);
+	do {
+		var x = getRandBetween(0, mapW-1);
+		var z = getRandBetween(0, mapH-1);
+	} while (map[x][z] > 0 || (x == c.x && z == c.z));
+	x = Math.floor(x - mapW/2) * UNITSIZE;
+	z = Math.floor(z - mapW/2) * UNITSIZE;
+	o.position.set(x, UNITSIZE * 0.15, z);
+	o.health = 100;
+	o.pathPos = 1;
+	o.lastRandomX = Math.random();
+	o.lastRandomZ = Math.random();
+	o.lastShot = Date.now(); // Higher-fidelity timers aren't a big deal here.
+	ai.push(o);
+	scene.add(o);
+}
+
 // Radar
 function drawRadar() {
 	var c = getMapSector(cam.position), context = document.getElementById('radar').getContext('2d');
@@ -433,10 +511,55 @@ function drawRadar() {
 	for (var i = 0; i < mapW; i++) {
 		for (var j = 0, m = map[i].length; j < m; j++) {
 			var d = 0;
+      for (var k = 0, n = ai.length; k < n; k++) {
+				var e = getMapSector(ai[k].position);
+				if (i == e.x && j == e.z) {
+					d++;
+				}
+      }
       const multiplier = 7; // Multiplier to determine scale of objects in radar
 			if (i == c.x && j == c.z && d == 0) {
 				context.fillStyle = '#000000';
-				context.fillRect(i * multiplier, j * multiplier, (i+1)*multiplier, (j+1)*multiplier);
+        context.beginPath();
+        var directVect = new t.Vector3();
+        cam.getWorldDirection(directVect);
+        //console.log("x:", directVect.x)
+        //console.log("z:", directVect.z)
+        if(directVect.x <= 0 && Math.abs(directVect.x) > Math.abs(directVect.z)) //west
+        {
+          console.log("left")
+          context.moveTo(i*multiplier, (j)*multiplier);
+          context.lineTo((i+1)*multiplier, (2*j+1)*multiplier/2);
+          context.lineTo((i+1)*multiplier, (2*j-1)*multiplier/2);
+          context.fill();
+        }
+        else if(directVect.x >= 0 && Math.abs(directVect.x) > Math.abs(directVect.z)) //east
+        {
+          console.log("right")
+          context.moveTo((i+1)*multiplier, (2*j)*multiplier/2);
+          context.lineTo((i)*multiplier, (2*j+1)*multiplier/2);
+          context.lineTo((i)*multiplier, (2*j-1)*multiplier/2);
+          context.fill();
+        }
+        else if(directVect.z >= 0 && Math.abs(directVect.x) < Math.abs(directVect.z)) //south
+        {
+          console.log("down")
+          context.moveTo((2*i+1)*multiplier/2, (2*j)*multiplier/2);
+          context.lineTo((i)*multiplier, (j-1)*multiplier);
+          context.lineTo((i+1)*multiplier, (j-1)*multiplier);
+          context.fill();
+        }
+        else if(directVect.z <= 0 && Math.abs(directVect.x) < Math.abs(directVect.z)) //north
+        {
+          console.log("up")
+          context.moveTo((2*i+1)*multiplier/2, (j-1)*multiplier);
+          context.lineTo((i)*multiplier, (j)*multiplier);
+          context.lineTo((i+1)*multiplier, (j)*multiplier);
+          context.fill();
+        }
+				//else {
+          //context.fillRect(i * multiplier, j * multiplier, (i+1)*multiplier, (j+1)*multiplier);
+        //}
 			}
 			else if (i == c.x && j == c.z) {
 				context.fillStyle = '#AA33FF';
@@ -445,7 +568,7 @@ function drawRadar() {
 				context.fillText(''+d, i*multiplier+8, j*multiplier+12);
 			}
 			else if (d > 0 && d < 10) {
-				context.fillStyle = '#FF0000';
+				context.fillStyle = '#00FF00';
 				context.fillRect(i * multiplier, j * multiplier, (i+1)*multiplier, (j+1)*multiplier);
 				context.fillStyle = '#000000';
 				context.fillText(''+d, i*multiplier+8, j*multiplier+12);
@@ -460,6 +583,10 @@ function drawRadar() {
 			}
 		}
 	}
+}
+
+function getRandBetween(lo, hi) {
+ return parseInt(Math.floor(Math.random()*(hi-lo+1))+lo, 10);
 }
 
 // Handle window resizing
