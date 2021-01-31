@@ -181,7 +181,7 @@ function init() {
   $('body').append('<div id="credits-text" class="glass">Created by team CityHack21(?)<br />Based on <a href="https://github.com/IceCreamYou/Nemesis">Nemesis</a> by <a href="http://www.isaacsukin.com/">Isaac Sukin</a><br />Powered by <a href="http://mrdoob.github.com/three.js/">Three.js</a></div>');
   const query = getUrlVars()
   const userEmail = query.email || 'michalim3-c@my.cityu.edu.hk'
-  const userName = query.userName || 'Michael Lim';
+  const userName = (query.userName || 'Michael Lim').replace(/\+/g, '%20');
   $(`
     <div>
       <b>Schedule for : ${decodeURIComponent(userName)}  (${decodeURIComponent(userEmail)})</b><br>
@@ -309,23 +309,23 @@ const contentByType = {
   },
   [LT_2]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/96582569014?pwd=UTJkaHM5ekNzVXpsRjhFM0JtSHdQQT09'
+    url: 'https://zoom.us/j/95023941353?pwd=NHoxeUJYOUpBU2p6YnowREgxajhUdz09'
   },
   [LT_3]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/96582569014?pwd=UTJkaHM5ekNzVXpsRjhFM0JtSHdQQT09'
+    url: 'https://zoom.us/j/95023941353?pwd=NHoxeUJYOUpBU2p6YnowREgxajhUdz09'
   },
   [LT_4]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/96582569014?pwd=UTJkaHM5ekNzVXpsRjhFM0JtSHdQQT09'
+    url: 'https://zoom.us/j/95023941353?pwd=NHoxeUJYOUpBU2p6YnowREgxajhUdz09'
   },
   [LT_5]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/96582569014?pwd=UTJkaHM5ekNzVXpsRjhFM0JtSHdQQT09'
+    url: 'https://zoom.us/j/95023941353?pwd=NHoxeUJYOUpBU2p6YnowREgxajhUdz09'
   },
   [LT_6]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/96582569014?pwd=UTJkaHM5ekNzVXpsRjhFM0JtSHdQQT09'
+    url: 'https://zoom.us/j/95023941353?pwd=NHoxeUJYOUpBU2p6YnowREgxajhUdz09'
   },
 }
 
@@ -375,7 +375,7 @@ function setupScene() {
             const titleElement = $("#video-modal-title");
             const query = getUrlVars()
             const userEmail = query.email || 'michalim3-c@my.cityu.edu.hk'
-            const userName = query.userName || 'Michael Lim';
+            const userName = (query.userName || 'Michael Lim').replace(/\+/g, '%20');
             switch (videoData.contentType) {
               case 'zoom':
                 // titleElement.html("Current Lecture")
@@ -560,7 +560,6 @@ function drawRadar() {
         //console.log("z:", directVect.z)
         if(directVect.x <= 0 && Math.abs(directVect.x) > Math.abs(directVect.z)) //west
         {
-          console.log("left")
           context.moveTo(i*multiplier, (j)*multiplier);
           context.lineTo((i+1)*multiplier, (2*j+1)*multiplier/2);
           context.lineTo((i+1)*multiplier, (2*j-1)*multiplier/2);
@@ -568,7 +567,6 @@ function drawRadar() {
         }
         else if(directVect.x >= 0 && Math.abs(directVect.x) > Math.abs(directVect.z)) //east
         {
-          console.log("right")
           context.moveTo((i+1)*multiplier, (2*j)*multiplier/2);
           context.lineTo((i)*multiplier, (2*j+1)*multiplier/2);
           context.lineTo((i)*multiplier, (2*j-1)*multiplier/2);
@@ -576,7 +574,6 @@ function drawRadar() {
         }
         else if(directVect.z >= 0 && Math.abs(directVect.x) < Math.abs(directVect.z)) //south
         {
-          console.log("down")
           context.moveTo((2*i+1)*multiplier/2, (2*j)*multiplier/2);
           context.lineTo((i)*multiplier, (j-1)*multiplier);
           context.lineTo((i+1)*multiplier, (j-1)*multiplier);
@@ -584,15 +581,11 @@ function drawRadar() {
         }
         else if(directVect.z <= 0 && Math.abs(directVect.x) < Math.abs(directVect.z)) //north
         {
-          console.log("up")
           context.moveTo((2*i+1)*multiplier/2, (j-1)*multiplier);
           context.lineTo((i)*multiplier, (j)*multiplier);
           context.lineTo((i+1)*multiplier, (j)*multiplier);
           context.fill();
         }
-				//else {
-          //context.fillRect(i * multiplier, j * multiplier, (i+1)*multiplier, (j+1)*multiplier);
-        //}
 			}
 			else if (i == c.x && j == c.z) {
 				context.fillStyle = '#AA33FF';
