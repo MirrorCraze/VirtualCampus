@@ -4,6 +4,12 @@
  *   is vertical
  */
 
+// cosine similarity
+var slider1 = document.getElementById("slider1").value;
+var slider2 = document.getElementById("slider2").value;
+var slider3 = document.getElementById("slider3").value;
+var slider4 = document.getElementById("slider4").value;
+
 var mapW = 32, mapH = 32
 var map = [
   [4,4,4,4,8,8,8,8,8,4,4,4,4,4,4,4,6,6,6,6,6,4,4,4,1,1,1,1,1,4,4,4],
