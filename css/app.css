@@ -1,5 +1,6 @@
 body {
-  background-image: url('https://www.cb.cityu.edu.hk/exchange/images/team_ac3.jpg');
+  background-image: url('/images/cityhackbg.jpg');
+  background-position: center;
   background-size: cover;
   cursor: crosshair;
   font-weight: bold;
@@ -110,8 +111,8 @@ p {
 #cityu-logo {
   display: block;
   width: 90px;
+  margin: 0 auto;
   height: auto;
-  margin-right: 16px;
 }
 #credits {
   font-size: 12px;
@@ -123,7 +124,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: whitesmoke;
+  background-color: rgba(0,0,0,0.5);
   left: 50%;
   transform: translateX(-50%);
 }

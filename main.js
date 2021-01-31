@@ -166,7 +166,7 @@ function init() {
   document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 
 
-  const cityULogoLink = 'https://upload.wikimedia.org/wikipedia/en/4/4a/CityU_logo.svg';
+  const cityULogoLink = '/images/cityhacklogo.png';
 	// Display HUD
   $('body').append('<canvas id="radar" width="225" height="225"></canvas>');
   $('body').append(`

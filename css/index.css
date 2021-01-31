@@ -1,6 +1,8 @@
 body {
-  background-image: url('https://www.cb.cityu.edu.hk/exchange/images/team_ac3.jpg');
+  background-image: url('/images/cityhackbg.jpg');
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 html,body {
