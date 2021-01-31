@@ -309,23 +309,23 @@ const contentByType = {
   },
   [LT_2]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/96790242753?pwd=VGM4NkRhTCtPbGNVTEhWc2RkZDVHUT09'
+    url: 'https://zoom.us/j/96582569014?pwd=UTJkaHM5ekNzVXpsRjhFM0JtSHdQQT09'
   },
   [LT_3]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/96790242753?pwd=VGM4NkRhTCtPbGNVTEhWc2RkZDVHUT09'
+    url: 'https://zoom.us/j/96582569014?pwd=UTJkaHM5ekNzVXpsRjhFM0JtSHdQQT09'
   },
   [LT_4]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/96790242753?pwd=VGM4NkRhTCtPbGNVTEhWc2RkZDVHUT09'
+    url: 'https://zoom.us/j/96582569014?pwd=UTJkaHM5ekNzVXpsRjhFM0JtSHdQQT09'
   },
   [LT_5]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/96790242753?pwd=VGM4NkRhTCtPbGNVTEhWc2RkZDVHUT09'
+    url: 'https://zoom.us/j/96582569014?pwd=UTJkaHM5ekNzVXpsRjhFM0JtSHdQQT09'
   },
   [LT_6]: {
     contentType: 'zoom',
-    url: 'https://zoom.us/j/96790242753?pwd=VGM4NkRhTCtPbGNVTEhWc2RkZDVHUT09'
+    url: 'https://zoom.us/j/96582569014?pwd=UTJkaHM5ekNzVXpsRjhFM0JtSHdQQT09'
   },
 }
 
