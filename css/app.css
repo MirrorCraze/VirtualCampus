@@ -92,6 +92,21 @@ p {
   padding: 8px;
   background-color: rgba(255, 255, 255, .85);
 }
+
+#my-schedule-container {
+  position: absolute;
+  top: 10px;
+  font-size: 12px;
+  left: 16px;
+  background-color: transparent;
+}
+
+#my-schedule-btn {
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+}
+
 #cityu-logo {
   display: block;
   width: 90px;
@@ -124,4 +139,22 @@ p {
   background-color: rgba(255, 255, 255, .55);
   backdrop-filter: blur(12px);
   border-radius: 4px;
+}
+
+.ctt-matrix-th-day {
+  text-align: center;
+}
+
+.ctt-matrix-container {
+  margin-top: 16px;
+}
+
+.ctt-matrix-container, .ctt-matrix {
+  width: 100%;
+}
+
+@media (min-width: 960px) {
+  .modal-dialog {
+    max-width: 900px !important;
+  }
 }

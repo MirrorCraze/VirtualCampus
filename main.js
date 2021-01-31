@@ -106,6 +106,18 @@ $(document).ready(function() {
   }).on("hidden.bs.modal", function() {
     $("#video-modal iframe").removeAttr("src allow");
   });
+  $("#my-schedule-modal").click(function(e) {
+    e.stopPropagation();
+  })
+  $('#my-schedule-modal').on("show.bs.modal", function (event) {
+    if (controls) controls.freeze = true;
+    $('.overlay').show();
+    $("#three-renderer").off();
+  }).on("hide.bs.modal", function () {
+    if (controls) controls.freeze = false;
+    $('.overlay').hide();
+    $("#three-renderer").on();
+  });
 });
 
 // Setup
@@ -146,7 +158,7 @@ function init() {
   // Add an overlay to block canvas from receiving mouse events
   const blockerDiv = document.createElement("div");
   blockerDiv.classList.add("overlay");
-  document.body.appendChild(blockerDiv)
+  $(blockerDiv).insertBefore('#video-modal');
 
   const throttledOnMouseMove = _.throttle(onDocumentMouseMove, 16);
 	// Track mouse position so we know where to shoot
@@ -156,10 +168,27 @@ function init() {
 
   const cityULogoLink = 'https://upload.wikimedia.org/wikipedia/en/4/4a/CityU_logo.svg';
 	// Display HUD
-	$('body').append('<canvas id="radar" width="225" height="225"></canvas>');
+  $('body').append('<canvas id="radar" width="225" height="225"></canvas>');
+  $('body').append(`
+    <div id="my-schedule-container">
+      <button type="button" id="my-schedule-btn" class="btn btn-primary" data-toggle="modal" data-target="#my-schedule-modal">
+        My Time Table
+      </button>
+    </div>
+  `);
 	$('body').append('<div id="credits" class="glass"><div><img src="' + cityULogoLink +  '" alt="CityU Logo" id="cityu-logo" /></div></div>');
   $('body').append('<div id="instructions" class="glass">WASD: Move Characters<br />Hover over a room to learn more.</div>');
-  $('body').append('<div id="credits-text" class="glass">Created by team CityHack21(?)<br />Based on <a href="https://github.com/IceCreamYou/Nemesis">Nemesis</a> by <a href="http://www.isaacsukin.com/">Isaac Sukin</a><br />Powered by <a href="http://mrdoob.github.com/three.js/">Three.js</a></div>')
+  $('body').append('<div id="credits-text" class="glass">Created by team CityHack21(?)<br />Based on <a href="https://github.com/IceCreamYou/Nemesis">Nemesis</a> by <a href="http://www.isaacsukin.com/">Isaac Sukin</a><br />Powered by <a href="http://mrdoob.github.com/three.js/">Three.js</a></div>');
+  const query = getUrlVars()
+  const userEmail = query.email || 'michalim3-c@my.cityu.edu.hk'
+  const userName = query.userName || 'Michael Lim';
+  $(`
+    <div>
+      <b>Schedule for : ${decodeURIComponent(userName)}  (${decodeURIComponent(userEmail)})</b><br>
+      <b>JAN 11, 2021 - APR 24, 2021</b><br>
+      <b>Total Credit Hours: 15.00</b><br>
+    </div>
+  `).insertBefore('#schedule-table-container');
 
 	// Set up "hurt" flash
 	$('body').append('<div id="hurt"></div>');
